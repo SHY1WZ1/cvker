@@ -17,6 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from cvker import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+# Add this to serve media files in development
+if settings.DEBUG:  # This is only necessary for development, Django automatically handles it in production
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
