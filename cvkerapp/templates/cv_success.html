@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVs List</title>
+    <style>
+        /* Basic resets */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+        }
+
+        /* Make the container fill up to 30% of the screen */
+        .container {
+            max-height: 100vh; /* Max height 30% of the viewport height */
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto; /* Allows scrolling if content exceeds height */
+            background-color: #f4f7f6;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Center the title */
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* List styling */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        li h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        li p {
+            margin: 5px 0;
+            color: #7f8c8d;
+        }
+
+        /* Styling the image */
+        img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Link styling */
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #2980b9;
+        }
+
+        a:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>All Created CVs</h1>
+
+        <ul>
+            {% for cv in cv_list %}
+            <li>
+                <h3>{{ cv.name }} {{ cv.surname }}</h3>
+                <p>Email: {{ cv.email }}</p>
+                <p>Phone: {{ cv.phone }}</p>
+                <p>Location: {{ cv.localization }}</p>
+                <p>Summary: {{ cv.summary }}</p>
+                <p>Job Opportunity: {{ cv.job_opportunity }}</p>
+                {% if cv.photo %}
+                    <img src="{{ cv.photo.url }}" alt="{{ cv.name }}'s photo">
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'start_page' %}">Create a New CV</a>
+    </div>
+
+</body>
+</html>

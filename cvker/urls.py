@@ -15,14 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from cvker import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('cvkerapp.urls')),  # Including the app's URLs, including the start page
 ]
+
 
 # Add this to serve media files in development
 if settings.DEBUG:  # This is only necessary for development, Django automatically handles it in production
