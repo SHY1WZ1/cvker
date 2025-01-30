@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.contrib import admin
+
 # Create your models here.
 
 class CV(models.Model):
@@ -21,3 +23,31 @@ class CV(models.Model):
     class Meta:
         verbose_name = 'CV'
         verbose_name_plural = 'CVs'
+
+class CVAdmin(admin.ModelAdmin):
+    # List the fields to display in the list view of the admin interface
+    list_display = ('name', 'surname', 'email', 'phone', 'localization', 'summary', 'job_opportunity', 'photo')
+
+    # Add search functionality by name or email
+    search_fields = ('name', 'surname', 'email')
+
+    # Add filters to make it easier to filter CVs by certain fields
+    list_filter = ('localization',)
+
+    # Add options for fieldsets (grouping fields in the form view)
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'surname', 'email', 'phone', 'localization', 'summary', 'job_opportunity')
+        }),
+        ('Photo', {
+            'fields': ('photo',),
+            'classes': ('collapse',)  # Allows collapsing the photo fieldset
+        })
+    )
+
+    # You can specify form layouts or add extra functionality as needed
+    # Exclude or customize certain fields in the admin form, if necessary
+    exclude = ['photo']  # For example, if you don't want the photo field to be editable here
+
+    # Optional: Customize the list view ordering
+    ordering = ['name', 'surname']
